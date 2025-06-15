@@ -1,0 +1,157 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Tejelanas Vivi",
+    "version": "1.0.0",
+    "description": "Documentación de los endpoints públicos protegidos por token Bearer.\n\n🔐 **Autenticación:** Usa el token `ipss.get` para acceder.\n\n📉 **Limitaciones de tasa (Rate Limiting):**\n- Máximo 60 solicitudes por minuto por IP.\n- Las solicitudes adicionales serán respondidas con `429 Too Many Requests`.\n\n🧠 **Estrategia de caché:**\n- Las respuestas pueden ser almacenadas en caché por hasta 5 minutos.\n- Se recomienda a los clientes implementar caché local para evitar sobrecarga.\n\n⏱️ **Tiempos de respuesta esperados:**\n- Promedio: 200 ms\n- Máximo esperado en carga alta: 1 segundo\n\n🚀 **Recomendaciones de optimización:**\n- Evita solicitudes innecesarias dentro de intervalos cortos.\n- Utiliza parámetros de consulta para filtrar y reducir el volumen de datos.\n- Usa cache-control del lado cliente donde sea posible."
+  },
+  "servers": [
+    {
+      "url": "https://www.clinicatecnologica.cl/ipss/tejelanasVivi/api/v1"
+    }
+  ],
+  "paths": {
+    "/products-services/": {
+      "get": {
+        "summary": "Obtener lista de productos y servicios",
+        "description": "Devuelve todos los productos y servicios disponibles.\n\n📌 Requiere token `ipss.get`.\n📉 Sujeto a limitación de 60 req/min.\n📦 Se recomienda implementar caché.\n⏱️ Tiempo esperado: ~200ms.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista obtenida exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product",
+                    "$ref2": "#/components/schemas/Service"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado."
+          },
+          "429": {
+            "description": "Límite de solicitudes excedido."
+          }
+        }
+      }
+    },
+    "/about-us/": {
+      "get": {
+        "summary": "Obtener información de la empresa",
+        "description": "Devuelve información institucional de Tejelanas Vivi.\n\n📌 Requiere token `ipss.get`.\n📦 Contenido puede cachearse por 5 minutos.\n⏱️ Tiempo esperado: ~150ms.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información institucional obtenida.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AboutUs"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado."
+          },
+          "429": {
+            "description": "Límite de solicitudes excedido."
+          }
+        }
+      }
+    },
+    "/faq/": {
+      "get": {
+        "summary": "Obtener preguntas frecuentes",
+        "description": "Devuelve preguntas y respuestas comunes.\n\n📌 Requiere token `ipss.get`.\n📦 Puede cachearse 5 min.\n⏱️ Tiempo esperado: ~170ms.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de FAQ recuperada.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FAQ"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado."
+          },
+          "429": {
+            "description": "Límite de solicitudes excedido."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "nombre": { "type": "string", "example": "Ejemplo producto" },
+          "descripcion": { "type": "string", "example": "Descripción del producto" },
+          "precio": { "type": "integer", "example": 12900 },
+          "tallas": { "type": "string", "example": ["S","M"] },
+          "colores": { "type": "string", "example": ["Azul", "Verde"] },
+          "imgs": { "type": "string", "example": ["https://www.clinicatecnologica.cl/ipss/tejelanasVivi/imgs/productos/ovillolanaColor.png"] }
+        }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "nombre": { "type": "string", "example": "Ejemplo servicio" },
+          "ubicacion": { "type": "string", "example": "Descripción del servicio" },
+          "cupos": { "type": "integer", "example": 70 },
+          "fecha": { "type": "string", "example": "08/06/2025" },
+          "imgs": { "type": "string", "example": ["https://www.clinicatecnologica.cl/ipss/tejelanasVivi/imgs/productos/ovillolanaColor.png"] }
+        }
+      },
+      "AboutUs": {
+        "type": "object",
+        "properties": {
+          "titulo": { "type": "string", "example": "Sobre Nosotros" },
+          "contenido": { "type": "string", "example": "Somos una empresa dedicada a..." }
+        }
+      },
+      "FAQ": {
+        "type": "object",
+        "properties": {
+          "pregunta": { "type": "string", "example": "¿Cómo funciona el servicio?" },
+          "respuesta": { "type": "string", "example": "El servicio funciona de la siguiente manera..." }
+        }
+      }
+    }
+  }
+}

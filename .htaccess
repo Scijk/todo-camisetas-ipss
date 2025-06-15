@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Evitar redirección para archivos reales y directorios
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Excluir carpeta de swagger
+RewriteCond %{REQUEST_URI} !^/ipss/desaBackend/examen/todo-camisetas-ipss/api-docs/
+
+# Redirige todo lo demás a index.php
+RewriteRule ^ index.php [QSA,L]

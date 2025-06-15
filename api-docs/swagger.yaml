@@ -1,0 +1,744 @@
+openapi: 3.0.0
+info:
+  title: API Camisetas
+  version: 1.0.0
+  description: |
+    API REST para gestionar camisetas, tallas y clientes.
+  
+    📉 **Limitaciones de tasa (Rate Limiting):**
+    - Máximo 60 solicitudes por minuto por IP.
+    - Las solicitudes adicionales serán respondidas con `429 Too Many Requests`.
+  
+    🧠 **Estrategia de caché:**
+    - Las respuestas pueden ser almacenadas en caché por hasta 5 minutos.
+    - Se recomienda a los clientes implementar caché local para evitar sobrecarga.
+  
+    ⏱️ **Tiempos de respuesta esperados:**
+    - Promedio: 200 ms
+    - Máximo esperado en carga alta: 1 segundo
+  
+    🚀 **Recomendaciones de optimización:**
+    - Evita solicitudes innecesarias dentro de intervalos cortos.
+    - Utiliza parámetros de consulta para filtrar y reducir el volumen de datos.
+    - Usa cache-control del lado cliente donde sea posible.
+servers:
+  - url: http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss
+paths:
+  /camisetas:
+    get:
+      summary: Obtener todas las camisetas con sus tallas
+      tags: [Camisetas]
+      responses:
+        '200':
+          description: Lista de camisetas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Camiseta'
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    post:
+      summary: Crear una nueva camiseta
+      tags: [Camisetas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CamisetaInput'
+      responses:
+        '200':
+          description: Camiseta creada correctamente
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+            description: Límite de solicitudes excedido.
+        '500':
+            description: Error del servidor.
+    put:
+      summary: Actualizar una camiseta completamente
+      tags: [Camisetas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CamisetaInput'
+      responses:
+        '200':
+          description: Camiseta actualizada
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    patch:
+      summary: Actualizar parcialmente una camiseta
+      tags: [Camisetas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                codProducto:
+                  type: string
+                titulo:
+                  type: string
+                club:
+                  type: string
+                pais:
+                  type: string
+                tipo:
+                  type: string
+                color:
+                  type: string
+                precio:
+                  type: number
+                detalles:
+                  type: string
+              required:
+                - codProducto
+      responses:
+        '200':
+          description: Camiseta actualizada parcialmente
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    delete:
+      summary: Eliminar una camiseta por código
+      tags: [Camisetas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                codProducto:
+                  type: string
+              required:
+                - codProducto
+      responses:
+        '200':
+          description: Camiseta eliminada
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+  /camisetas/ver:
+    post:
+      summary: Obtener una camiseta por código
+      tags: [Camisetas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                codProducto:
+                  type: string
+              required:
+                - codProducto
+      responses:
+        '200':
+          description: Camiseta encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Camiseta'
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+  /camisetas/precio:
+    post:
+      summary: Obtener precio final para un cliente específico
+      tags: [Camisetas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rut:
+                  type: string
+                codProducto:
+                  type: string
+              required:
+                - rut
+                - codProducto
+      responses:
+        '200':
+          description: Precio final con descuento aplicado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codProducto:
+                    type: string
+                  titulo:
+                    type: string
+                  precio:
+                    type: number
+                  cliente:
+                    type: string
+                  precio_final:
+                    type: number
+                  descuento_aplicado:
+                    type: number
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+  /camisetas/tallas:
+    post:
+      summary: Asignar tallas a una camiseta
+      tags:
+        - [Camisetas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - codProducto
+                - tallas
+              properties:
+                codProducto:
+                  type: string
+                  example: CAM123
+                tallas:
+                  type: array
+                  items:
+                    type: integer
+                  example: [ 1, 2, 3 ]
+      responses:
+        '200':
+          description: Tallas asignadas correctamente
+          content:
+            application/json:
+              example:
+                mensaje: Tallas asignadas
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    delete:
+      summary: Eliminar tallas asignadas a una camiseta
+      tags:
+        - [Camisetas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - codProducto
+                - tallas
+              properties:
+                codProducto:
+                  type: string
+                  example: CAM123
+                tallas:
+                  type: array
+                  items:
+                    type: integer
+                  example: [ 1, 2 ]
+      responses:
+        '200':
+          description: Tallas eliminadas de la camiseta
+          content:
+            application/json:
+              example:
+                mensaje: Tallas eliminadas de la camiseta
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+  /clientes:
+    get:
+      summary: Obtener lista de clientes
+      tags:
+        - Clientes
+      responses:
+        '200':
+          description: Lista de clientes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cliente'
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+
+    post:
+      summary: Crear un nuevo cliente
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteInput'
+      responses:
+        '200':
+          description: Cliente creado correctamente
+          content:
+            application/json:
+              example:
+                mensaje: Cliente creado con éxito
+                id: 10
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    put:
+      summary: Actualizar todos los datos de un cliente
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteInput'
+      responses:
+        '200':
+          description: Cliente actualizado correctamente
+          content:
+            application/json:
+              example:
+                mensaje: Cliente actualizado
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    patch:
+      summary: Actualizar parcialmente un cliente
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rut:
+                  type: string
+                  example: 12345678-9
+                nombre_comercial:
+                  type: string
+                  example: Cliente Nuevo
+                direccion:
+                  type: string
+                  example: Calle Falsa 123
+                categoria:
+                  type: string
+                  example: Preferencial
+                contacto_nombre:
+                  type: string
+                  example: Ana Pérez
+                contacto_email:
+                  type: string
+                  example: ana@cliente.cl
+                porcentaje_descuento:
+                  type: number
+                  example: 15.5
+      responses:
+        '200':
+          description: Cliente actualizado parcialmente
+          content:
+            application/json:
+              example:
+                mensaje: Cliente actualizado parcialmente
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    delete:
+      summary: Eliminar un cliente por RUT
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - rut
+              properties:
+                rut:
+                  type: string
+                  example: 12345678-9
+      responses:
+        '200':
+          description: Cliente eliminado correctamente
+          content:
+            application/json:
+              example:
+                mensaje: Cliente eliminado
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+  /clientes/ver:
+    post:
+      summary: Ver un cliente por RUT
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - rut
+              properties:
+                rut:
+                  type: string
+                  example: 12345678-9
+      responses:
+        '200':
+          description: Datos del cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+  /tallas:
+    get:
+      summary: Obtener lista de tallas
+      tags:
+        - Tallas
+      responses:
+        '200':
+          description: Lista de tallas existentes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Talla'
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+
+    post:
+      summary: Crear una nueva talla
+      tags:
+        - Tallas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TallaInput'
+      responses:
+        '200':
+          description: Talla creada correctamente
+          content:
+            application/json:
+              example:
+                mensaje: Talla creada
+                id: 5
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    patch:
+      summary: Actualizar una talla existente
+      tags:
+        - Tallas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - idTalla
+                - nombre
+              properties:
+                idTalla:
+                  type: integer
+                  example: 3
+                nombre:
+                  type: string
+                  example: XL
+      responses:
+        '200':
+          description: Talla actualizada correctamente
+          content:
+            application/json:
+              example:
+                mensaje: Talla actualizada
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+    delete:
+      summary: Eliminar una talla
+      tags:
+        - Tallas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - idTalla
+              properties:
+                idTalla:
+                  type: integer
+                  example: 2
+      responses:
+        '200':
+          description: Talla eliminada correctamente
+          content:
+            application/json:
+              example:
+                mensaje: Talla eliminada
+        '400':
+          description: Request mal formado.
+        '404':
+          description: Ruta no encotrada.
+        '429':
+          description: Límite de solicitudes excedido.
+        '500':
+          description: Error del servidor.
+components:
+  schemas:
+    Camiseta:
+      type: object
+      properties:
+        codProducto:
+          type: string
+          example: COL2025L
+        titulo:
+          type: string
+          example: Camiseta Colombia Local 2025
+        club:
+          type: string
+          example: Selección Colombiana
+        pais:
+          type: string
+          example: Colombia
+        tipo:
+          type: string
+          example: Local
+        color:
+          type: string
+          example: Amarillo
+        precio:
+          type: number
+          example: 45000
+        detalles:
+          type: string
+          example: Oficial de colección
+        tallas:
+          type: array
+          items:
+            type: string
+          example: [1, 2]
+    CamisetaInput:
+      type: object
+      required:
+        - codProducto
+        - titulo
+        - club
+        - pais
+        - tipo
+        - color
+        - precio
+        - detalles
+      properties:
+        codProducto:
+          type: string
+          example: COL2025L
+        titulo:
+          type: string
+          example: Camiseta Colombia Local 2025
+        club:
+          type: string
+          example: Selección Colombiana
+        pais:
+          type: string
+          example: Colombia
+        tipo:
+          type: string
+          example: Local
+        color:
+          type: string
+          example: Amarillo
+        precio:
+          type: number
+          example: 45000
+        detalles:
+          type: string
+          example: Oficial de colección
+    Cliente:
+      type: object
+      properties:
+        nombre_comercial:
+          type: string
+          example: Zapatería Don Luis
+        rut:
+          type: string
+          example: 12345678-9
+        direccion:
+          type: string
+          example: Avenida Siempre Viva 742
+        categoria:
+          type: string
+          example: Regular
+        contacto_nombre:
+          type: string
+          example: Luis Zapata
+        contacto_email:
+          type: string
+          example: contacto@zapateria.cl
+        porcentaje_descuento:
+          type: number
+          example: 10.5
+    ClienteInput:
+      type: object
+      required:
+        - nombre_comercial
+        - rut
+        - direccion
+        - categoria
+        - contacto_nombre
+        - contacto_email
+        - porcentaje_descuento
+      properties:
+        nombre_comercial:
+          type: string
+          example: Comercial El Árbol
+        rut:
+          type: string
+          example: 11111111-1
+        direccion:
+          type: string
+          example: Calle Principal 100
+        categoria:
+          type: string
+          example: Regular
+        contacto_nombre:
+          type: string
+          example: Pedro López
+        contacto_email:
+          type: string
+          example: pedro@elarbol.cl
+        porcentaje_descuento:
+          type: number
+          example: 5.0
+    Talla:
+      type: object
+      properties:
+        idTalla:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: M
+    TallaInput:
+      type: object
+      required:
+        - nombre
+      properties:
+        nombre:
+          type: string
+          example: L
