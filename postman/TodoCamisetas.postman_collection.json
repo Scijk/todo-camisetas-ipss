@@ -1,0 +1,643 @@
+{
+	"info": {
+		"_postman_id": "384d3152-34ed-4ce1-b863-b8dfcdbb36d0",
+		"name": "TodoCamisetas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14079874"
+	},
+	"item": [
+		{
+			"name": "Camisetas",
+			"item": [
+				{
+					"name": "CrearCamiseta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codProducto\": \"COL2025L\",\r\n  \"titulo\": \"Camiseta Colombia Local 2025\",\r\n  \"club\": \"Selección Colombiana\",\r\n  \"pais\": \"Colombia\",\r\n  \"tipo\": \"Local\",\r\n  \"color\": \"Amarillo\",\r\n  \"precio\": 45000,\r\n  \"detalles\": \"Oficial de colección\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarCamiseta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codProducto\": \"Camiseta Colombia Local 2025\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCamisetas",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VerUna",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codProducto\": \"SCL2025L\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas/ver",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas",
+								"ver"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarCamiseta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codProducto\": \"SCL2025V\",\r\n  \"titulo\": \"Camiseta Chile Visita 2025\",\r\n  \"club\": \"Selección Chile\",\r\n  \"pais\": \"Chile\",\r\n  \"tipo\": \"Visitassssw\",\r\n  \"color\": \"Azul y Rojo\",\r\n  \"precio\": 42000,\r\n  \"detalles\": \"Oficial de colección\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarParcialCamiseta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codProducto\": \"SCL2025V\",\r\n  \"tipo\": \"Visita\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PrecioPorCliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codProducto\": \"SCL2025L\",\r\n  \"rut\": \"67.890.123-4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas/precio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas",
+								"precio"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tallas",
+			"item": [
+				{
+					"name": "CrearTalla",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"XXL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/tallas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"tallas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarTalla",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idTalla\": \"14\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/tallas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"tallas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTallas",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/tallas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"tallas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarTalla",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idTalla\": \"15\",\r\n  \"nombre\": \"XS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/tallas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"tallas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AsignarTallaCamiseta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codProducto\": \"SCL2025V\",\r\n  \"tallas\": [1, 2, 15]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas/tallas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas",
+								"tallas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarTallaCamiseta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codProducto\": \"SCL2025V\",\r\n  \"tallas\": [1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/camisetas/tallas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"camisetas",
+								"tallas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "CrearCliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre_comercial\": \"tdeportes\",\r\n  \"rut\": \"67.890.123-4\",\r\n  \"direccion\": \"Pudahuel, Santiago\",\r\n  \"categoria\": \"Regular\",\r\n  \"contacto_nombre\": \"Alvaro Diaz\",\r\n  \"contacto_email\": \"adiaz@tdeportes.cl\",\r\n  \"porcentaje_descuento\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarCliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"rut\": \"67.890.123-4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarClientes",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VerUna",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rut\": \"67.890.123-4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/clientes/ver",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"clientes",
+								"ver"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarCliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre_comercial\": \"tdeportes\",\r\n  \"rut\": \"67.890.123-4\",\r\n  \"direccion\": \"Pudahuel, Santiago\",\r\n  \"categoria\": \"Regular\",\r\n  \"contacto_nombre\": \"Alvaro Diaz\",\r\n  \"contacto_email\": \"adiaz@tdeportes.cl\",\r\n  \"porcentaje_descuento\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarParcialCliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"rut\": \"67.890.123-4\",\r\n  \"direccion\": \"Las Condes, Santiago\",\r\n  \"porcentaje_descuento\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/ipss/desaBackend/examen/todo-camisetas-ipss/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ipss",
+								"desaBackend",
+								"examen",
+								"todo-camisetas-ipss",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
